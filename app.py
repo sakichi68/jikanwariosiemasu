@@ -105,6 +105,19 @@ def message_text(event):
     if text == "明日の授業":
         reply_message(event, "明日の授業はxx")
 
+    text_splited = ('', '')
+    if ' ' in text and len(text.split(' ')) == 2:
+        text_splited = text.split(' ')
+    elif '　' in text and len(text.split('　')) == 2:
+        text_splited = text.split('　')
+
+    if text_splited[0] == "時間割":
+        index = int(text_splited[1])
+        sch = Schedule.query.filter(id==index).all()[0]
+        text = f'name:{sch.name}\n1限目:{sch.period1}\n2限目:{sch.period2}\n3限目:{sch.period3}\n4限目:{sch.period4}'
+        reply_message(event, text)
+
+
 
 def reply_message(event, message):
     line_bot_api.reply_message(
