@@ -1,6 +1,4 @@
-import os
-import sys
-from argparse import ArgumentParser
+import os, sys
 
 from flask import Flask, request, abort
 from linebot import (
@@ -36,7 +34,6 @@ def callback():
 
     # get request body as text
     body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
 
     # handle webhook body
     try:
@@ -49,18 +46,15 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text="hello")
-    )
+    text = event.message.text
+    if text == "今日の授業":
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="今日の授業はxx"))
+    if text == "明日の授業":
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="明日の授業はxx")
+        )
 
 
 if __name__ == "__main__":
-    arg_parser = ArgumentParser(
-        usage='Usage: python ' + __file__ + ' [--port <port>] [--help]'
-    )
-    arg_parser.add_argument('-p', '--port', default=8000, help='port')
-    arg_parser.add_argument('-d', '--debug', default=False, help='debug')
-    options = arg_parser.parse_args()
-
-    app.run(debug=options.debug, port=options.port)
+    app.run(debug=True)
