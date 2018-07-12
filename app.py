@@ -57,7 +57,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/register")
+@app.route("/register", methods=['POST'])
 def register():
     name = request.form['name']
     period1 = request.form['1genme']
