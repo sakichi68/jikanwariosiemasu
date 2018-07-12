@@ -47,13 +47,25 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
     text = event.message.text
+    if text == "ヘルプ":
+        reply_message(event,
+"""今日の時間割を知りたいときは\"今日の授業\"
+明日の時間割を知りたいときは\"明日の授業\"
+と入力してね!""")
+
     if text == "今日の授業":
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="今日の授業はxx"))
+        reply_message(event, "今日の授業はxx")
+
     if text == "明日の授業":
-        line_bot_api.reply_message(
+        reply_message(
             event.reply_token,
             TextSendMessage(text="明日の授業はxx")
         )
+
+def reply_message(event, message):
+    line_bot_api.reply_message(
+        event.reply_token, [TextSendMessage(text=message)]
+    )
 
 
 if __name__ == "__main__":
