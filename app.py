@@ -57,13 +57,35 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/register")
+def register():
+    name = request.form['name']
+    period1 = request.form['1genme']
+    period2 = request.form['2genme']
+    period3 = request.form['3genme']
+    period4 = request.form['4genme']
+    sch = Schedule(name, period1, period2, period3, period4)
+    db.session.add(sch)
+    db.session.commit()
+    return render_template("success.html")
+
+
 class Schedule(db.Model):
     __tablename__ = 'schedules'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
-    jikanwari = db.Column(db.String(200), nullable=False)
+    period1 = db.Column(db.String(200), nullable=False)
+    period2 = db.Column(db.String(200), nullable=False)
+    period3 = db.Column(db.String(200), nullable=False)
+    period4 = db.Column(db.String(200), nullable=False)
 
+    def __init__(self, name, period1, period2, period3, period4):
+        self.name = name
+        self.period1 = period1
+        self.period2 = period2
+        self.period3 = period3
+        self.period4 = period4
 
 
 @handler.add(MessageEvent, message=TextMessage)
