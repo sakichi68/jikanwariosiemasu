@@ -105,6 +105,32 @@ def message_text(event):
     if text == "明日の授業":
         reply_message(event, "明日の授業はxx")
 
+    if text == "月曜日":
+        sch = Schedule.query.filter(Schedule.id==1).all()[0]
+        text = f'{sch.name}\n1限目:{sch.period1}\n2限目:{sch.period2}\n3限目:{sch.period3}\n4限目:{sch.period4}'
+        reply_message(event, text)
+
+    if text == "火曜日":
+        sch = Schedule.query.filter(Schedule.id==2).all()[0]
+        text = f'{sch.name}\n1限目:{sch.period1}\n2限目:{sch.period2}\n3限目:{sch.period3}\n4限目:{sch.period4}'
+        reply_message(event, text)
+
+    if text == "水曜日":
+        sch = Schedule.query.filter(Schedule.id==3).all()[0]
+        text = f'{sch.name}\n1限目:{sch.period1}\n2限目:{sch.period2}\n3限目:{sch.period3}\n4限目:{sch.period4}'
+        reply_message(event, text)
+        
+    if text == "木曜日":
+        sch = Schedule.query.filter(Schedule.id==4).all()[0]
+        text = f'{sch.name}\n1限目:{sch.period1}\n2限目:{sch.period2}\n3限目:{sch.period3}\n4限目:{sch.period4}'
+        reply_message(event, text)
+
+    if text == "金曜日":
+        sch = Schedule.query.filter(Schedule.id==5).all()[0]
+        text = f'{sch.name}\n1限目:{sch.period1}\n2限目:{sch.period2}\n3限目:{sch.period3}\n4限目:{sch.period4}'
+        reply_message(event, text)
+
+
     text_splited = ('', '')
     if ' ' in text and len(text.split(' ')) == 2:
         text_splited = text.split(' ')
