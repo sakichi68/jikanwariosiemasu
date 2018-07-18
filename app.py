@@ -93,10 +93,10 @@ def message_text(event):
     text = event.message.text
     if text == "ヘルプ":
         reply_message(event,
-"""今日の時間割を知りたいときは
-\"今日の授業\"
-明日の時間割を知りたいときは
-\"明日の授業\"
+"""火曜日の時間割を知りたいときは
+\"火曜日\"
+金曜日の時間割を知りたいときは
+\"金曜日\"
 と入力してね!""")
 
     if text == "今日の授業":
@@ -119,7 +119,7 @@ def message_text(event):
         sch = Schedule.query.filter(Schedule.id==3).all()[0]
         text = f'{sch.name}\n1限目:{sch.period1}\n2限目:{sch.period2}\n3限目:{sch.period3}\n4限目:{sch.period4}'
         reply_message(event, text)
-        
+
     if text == "木曜日":
         sch = Schedule.query.filter(Schedule.id==4).all()[0]
         text = f'{sch.name}\n1限目:{sch.period1}\n2限目:{sch.period2}\n3限目:{sch.period3}\n4限目:{sch.period4}'
